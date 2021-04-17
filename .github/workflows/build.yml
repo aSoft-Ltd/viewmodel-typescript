@@ -1,0 +1,31 @@
+name: Build & Test
+
+on:
+  pull_request:
+    branches: [ master-dev ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+      - uses: actions/setup-node@v1
+        with:
+          node-version: 10
+
+      - name: viewmodel-core-npm-install
+        run: npm install
+        working-directory: ./viewmodel-core
+      - name: viewmodel-core-npm-test
+        run: npm run test
+        working-directory: ./viewmodel-core
+      - name: viewmodel-core-npm-build
+        run: npm run build
+        working-directory: ./viewmodel-core
+        
+      - name: viewmodel-react-npm-install
+        run: npm install
+        working-directory: ./viewmodel-react
+      - name: viewmodel-react-npm-build
+        run: npm run build
+        working-directory: ./viewmodel-react
